@@ -37,12 +37,12 @@ App = {
   initContract: function() {
     // retrieves artifact file for the smart contract
     // artifacts = info abt contract (i.e. address, vars, functions)
-    $.getJSON('Adoption.json', function(data)) {
+    $.getJSON('Adoption.json', function(data) {
         var AdoptionArtifact = data;
         App.contracts.Adoption = TruffleContract(AdoptionArtifact);
         App.contracts.Adoption.setProvider(App.web3Provider);
         return App.markAdopted();
-    }
+    });
 
     return App.bindEvents();
   },
@@ -80,7 +80,7 @@ App = {
             console.log(error);
         }
         var account = accounts[0];
-        App.contracts.Adoption.deployed().then(functions(instance) {
+        App.contracts.Adoption.deployed().then(function(instance) {
             adoptionInstance = instance;
             // adopt() executes a transaction
             return adoptionInstance.adopt(petId, {from: account});
@@ -91,7 +91,7 @@ App = {
         });
     });
   }
-},
+};
 
 $(function() {
   $(window).load(function() {
